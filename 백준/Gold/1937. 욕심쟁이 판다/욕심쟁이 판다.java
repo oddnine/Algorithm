@@ -46,7 +46,6 @@ public class Main {
             if (nowX >= 0 && nowY >= 0 && nowX < n && nowY < n) {
                 if (map[x][y] < map[nowX][nowY]) {
                     dp[x][y] = Math.max(dp[x][y], dfs(nowX, nowY) + 1);
-                    dfs(nowX, nowY);
                 }
             }
         }
