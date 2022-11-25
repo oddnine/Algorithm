@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -58,7 +57,7 @@ public class Main {
         for (int i = 0; i < map[start].size(); i++) {
             if (!map[map[start].get(i)].isEmpty()) {
                 dfs(map[start].get(i));
-            } else if ( map[map[start].get(i)].isEmpty() && !fans.contains(map[start].get(i))) {
+            } else if (map[map[start].get(i)].isEmpty() && !fans.contains(map[start].get(i))) {
                 tour = true;
             }
         }
