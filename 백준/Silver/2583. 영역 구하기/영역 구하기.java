@@ -11,7 +11,6 @@ public class Main {
     static int dx[] = {-1, 1, 0, 0};
     static int dy[] = {0, 0, -1, 1};
     static List<Integer> nums;
-    static int count;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,7 +22,6 @@ public class Main {
         map = new boolean[n][m];
         visited = new boolean[n][m];
         nums = new ArrayList<>();
-        count = 0;
 
         for (int i = 0; i < k; i++) {
             st = new StringTokenizer(br.readLine());
@@ -43,9 +41,8 @@ public class Main {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (!visited[i][j] && !map[i][j]) {
-                    dfs(i, j);
-                    nums.add(count);
-                    count = 0;
+                    int num = bfs(i, j);
+                    nums.add(num);
                 }
             }
         }
@@ -57,19 +54,31 @@ public class Main {
         }
     }
 
-    private static void dfs(int x, int y) {
+    private static int bfs(int x, int y) {
         visited[x][y] = true;
-        count++;
+        int count = 1;
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{x, y});
 
-        for (int i = 0; i < 4; i++) {
-            int nowX = x + dx[i];
-            int nowY = y + dy[i];
+        while (!q.isEmpty()) {
+            int[] list = q.poll();
+            int xx = list[0];
+            int yy = list[1];
 
-            if (nowX >= 0 && nowY >= 0 && nowX < n && nowY < m) {
-                if (!visited[nowX][nowY] && !map[nowX][nowY]) {
-                    dfs(nowX, nowY);
+            for (int i = 0; i < 4; i++) {
+                int nowX = xx + dx[i];
+                int nowY = yy + dy[i];
+
+                if (nowX >= 0 && nowY >= 0 && nowX < n && nowY < m) {
+                    if (!visited[nowX][nowY] && !map[nowX][nowY]) {
+                        visited[nowX][nowY] = true;
+                        q.add(new int[]{nowX, nowY});
+                        count++;
+                    }
                 }
             }
         }
+
+        return count;
     }
 }
